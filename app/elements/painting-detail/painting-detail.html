@@ -1,0 +1,62 @@
+<dom-module id="painting-detail">
+	<template>
+	<style>
+	paper-dialog.size-position {
+		position: fixed;
+		top: 16px;
+	}
+
+	h3 {
+	 margin-top: 7px;
+	 margin-bottom: 0px;
+	}
+
+	p {
+		font-size:x-small;
+		display: block;
+		max-width: 200px;
+	}
+	paper-icon-button {
+		    margin-top: 10px;
+        margin-left:16px;
+        display: block;
+        width: 24px;
+        text-align: center;
+      }
+	</style>
+	<paper-dialog id="modal" modal class="size-position">
+		<img id="mainImg" style="display:none;" src$="{{getImagePath(filename)}}">
+		<h3>{{heading}}</h3>
+		<paper-icon-button icon="favorite" alt="heart" title="heart"></paper-icon-button>
+		<div class="buttons">
+			<paper-button dialog-confirm autofocus>Tap me to close</paper-button>
+		</div>
+	</paper-dialog>
+</template>
+</dom-module>
+<script>
+Polymer({
+	is:'painting-detail',
+	getImagePath: function(url){
+		return '../../images/large/'+ url;
+	},
+	open: function(target){
+		console.log('updateDetail: ', target.id, target.filename);
+		this.filename 	= target.filename;
+		this.heading 	  = target.heading;
+		this.year		    = target.year;
+		this.medium		  = target.medium;
+		this.substrate	= target.substrate;
+		var dialog = this.$.modal;
+		console.log('var id:' , dialog);
+		if (dialog) {
+			dialog.open();
+		}
+	},
+	ready: function(){
+		this.$.mainImg.addEventListener('load',function(){
+			this.$.mainImg.style.display = 'block';
+		}.bind(this));
+	}
+});
+</script>

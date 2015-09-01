@@ -1,0 +1,29 @@
+
+<dom-module id="my-portfolio">
+<style>
+
+</style>
+<template>
+  <google-sheets id="sheet" key="1lBZvP1tufnRegYqUcUUrwAGx5hROtBHDsaxKfOU-Zg4" published tab-id="1" rows="{{rows}}"></google-sheets>
+    <template is="dom-repeat" items="[[rows]]" as="painting">
+          <painting-thumb
+          ide="{{painting.gsx$id.$t}}"
+          filename="{{ painting.gsx$filename.$t }}"
+          heading="{{ painting.gsx$title.$t }}"
+          medium="{{ painting.gsx$medium.$t }}"
+          description="{{ painting.gsx$description.$t }}"
+          ></painting-thumb>
+
+    </template>
+</template>
+</dom-module>
+<script>
+Polymer({
+  is:'my-portfolio',
+  ready: function() {
+    this.$.sheet.addEventListener('google-sheet-data', function() {
+         console.log('on-google-sheet-data');
+     });
+  }
+});
+</script>

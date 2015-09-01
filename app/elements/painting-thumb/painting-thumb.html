@@ -1,0 +1,68 @@
+<dom-module id="painting-thumb">
+<style>
+.card {
+  display:block;
+ }
+#wraper {
+   margin: 30px
+ }
+ :host{
+   display:inline-block;
+ }
+
+p {
+    font-size:x-small;
+    display: block;
+    max-width: 200px
+
+  }
+</style>
+<template>
+  <div id="wraper">
+    <img  class="card"
+          id="{{ide}}"
+          src$="{{getImagePath(filename)}}"
+          filename="{{filename}}"
+          heading="{{heading}}"
+          medium="{{medium}}"
+          on-click="onCardClick">
+          <h3 class="layout horizontal center-center">{{heading}}</h3>
+          <p class="layout horizontal center-center">{{description}}</p>
+  </div>
+  <painting-detail id="dialog"></painting-detail>
+</template>
+</dom-module>
+<script>
+   Polymer({
+     is:'painting-thumb',
+     properties: {
+       ide: {
+         type: String,
+       },
+       filename: {
+         type: String,
+       },
+       heading: {
+         type: String,
+       },
+       medium: {
+         type: String,
+       },
+       description: {
+         type: String,
+       },
+     },
+     getImagePath: function(url){
+       return '../../images/thumbs/'+ url;
+     },
+     onCardClick: function(event){
+           console.log('Card Clicked: ', event.target.id, event.target.filename);
+           var dialog = this.$.dialog;
+           //console.log('var id: ', dialog);
+           if (dialog) {
+           dialog.open(event.target);
+         }
+
+     }
+   });
+</script>
